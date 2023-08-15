@@ -1,0 +1,28 @@
+[workspace]
+
+[package]
+name = "luban_protoc"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "luban_protoc"
+path = "main.rs"
+
+[dependencies.glob]
+version = "0.3"
+
+[dependencies.tonic-build]
+version = "0.9"
+features = ["prost"]
+
+[dependencies.xuanmi_base_support]
+# git = "ssh://git@github.com/taiyi-research-institute/xuanmi_base_support"
+git = "ssh://git@github.com/taiyi-research-institute/xuanmi_base_support"
+branch = "main"
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1
+strip = true

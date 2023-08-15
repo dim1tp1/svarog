@@ -1,0 +1,109 @@
+[package]
+name = "lbc"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "lbc"
+path = "src/lbc.rs"
+
+[dependencies.aes-gcm]
+version = "0.9"
+# enable "std" so that impl std::error::Error for aes_gcm::Error
+features = ["std"]
+
+[dependencies.anyhow]
+version = "1.0"
+features = ["backtrace", "std"]
+
+[dependencies.bip32]
+version = "0.5"
+features = ["secp256k1", "alloc"]
+
+[dependencies.bitcoin]
+version = "0.29"
+features = ["serde"]
+
+[dependencies.chrono]
+version = "0.4"
+
+[dependencies.clap]
+version = "4.3"
+features = ["derive"]
+
+[dependencies.curv-kzen]
+version = "0.9"
+default-features = false
+features = ["num-bigint"]
+
+[dependencies.hex]
+version = "0.4"
+
+[dependencies.hmac]
+version = "0.11.0"
+# version = "0.12.1"  # Winston: 0.12.1 is incompatible with sha2
+features = ["std"]
+
+[dependencies.itertools]
+version = "0.10"
+
+[dependencies.k256]
+version = "0.12"
+features = ["arithmetic", "serde", "ecdsa", "ecdsa-core"]
+
+[dependencies.lx_grpc]
+path = "../lx_grpc"
+
+[dependencies.miniz_oxide]
+version = "0.7"
+
+[dependencies.multi-party-ecdsa]
+path = "mp-ecdsa-184c49fa"
+# git = "https://github.com/KZen-networks/multi-party-ecdsa"
+# tag = "v0.8.1"
+
+[dependencies.paillier]
+package = "kzen-paillier"
+version = "0.4.2"
+default-features = false
+
+[dependencies.rand_core]
+version = "0.6"
+
+[dependencies.serde]
+version = "1.0"
+features = ["derive"]
+
+[dependencies.serde_json]
+version = "1.0"
+
+[dependencies.sha2]
+# Winston: Do not use 0.10.z! Otherwise you'll encounter hundreds of trait compilation errors.
+# version = "0.10.6"
+version = "0.9.9"
+default-features = false
+
+[dependencies.tiny-bip39] # provides bip39::*, not equivalent to crate `bip39`
+version = "1"
+
+[dependencies.uuid]
+version = "0.8"
+features = ["v4"]
+
+[dependencies.xuanmi_base_support]
+git = "ssh://git@github.com/taiyi-research-institute/xuanmi_base_support.git"
+branch = "main"
+# path = "../../xuanmi_base_support"
+
+[dependencies.zk-paillier]
+version = "0.4.3"
+default-features = false
+
+# [dependencies] # tracing
+# tracing = "*"
+# tracing-subscriber = "*"
+# tracing-appender = "*"
+
+[features]
+default = []
+procrastinate = []

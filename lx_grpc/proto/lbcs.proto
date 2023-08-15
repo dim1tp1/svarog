@@ -1,0 +1,52 @@
+syntax = "proto2";
+package lbcs;
+import "gg18.proto";
+import "lbm.proto";
+option java_package = "lx.protogen.lbcs";
+
+message BasicMpcRequest {
+    required string lbm_session_id = 1;
+    required string owner_id = 2;
+}
+
+message RootMnemonic {
+    required string root_mnemonic = 1;
+    optional string password = 2;
+}
+
+message KeySharingRequest {
+    required BasicMpcRequest sid_oid = 1;
+    optional RootMnemonic root_mnemonic = 3;
+}
+
+message KeyRescueRequest {
+    required BasicMpcRequest sid_oid = 1;
+    optional string shard_mnemonic = 2;
+}
+
+message ShardMnemonic {
+    required string shard_mnemonic = 1;
+}
+
+message KeyMetadata {
+    required string root_xpub = 1;
+    required string shard_mnemonic = 2;
+}
+
+message MpcProgress {
+    required uint64 current = 1;
+    required uint64 total = 2;
+    required string message = 3;
+    oneof harvest {
+        KeyMetadata key_meta = 4;
+        gg18.Signature signature = 5;
+    }
+}
+
+service LubanClient {
+    rpc ClientKeygen(BasicMpcRequest) returns (stream MpcProgress);
+    rpc ClientShareRootKey(KeySharingRequest) returns (stream MpcProgress);
+    rpc ClientRescueKey(KeyRescueRequest) returns (stream MpcProgress);
+    rpc ClientSign(BasicMpcRequest) returns (stream MpcProgress);
+    rpc ClientDisagree(BasicMpcRequest) returns (lbm.Void);
+}

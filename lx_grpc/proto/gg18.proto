@@ -1,0 +1,55 @@
+syntax = "proto2";
+package gg18;
+option java_package = "lx.protogen.gg18";
+
+
+message Signature {
+    required bytes r = 1;
+    required bytes s = 2;
+    required bool  v = 3;
+}
+
+message KeyStore {
+    required bytes chain_code = 1;
+    required bytes root_pubkey = 2;
+    required GG18Keys party_keys = 3;
+    required GG18SharedKeys shared_keys = 4;
+    map<uint64, Vss> batch_vss_scheme = 5;
+    map<uint64, EncryptionKey> batch_paillier_key = 6;
+    
+    required string owner_id = 14;
+    required string key_id = 15;
+}
+
+message GG18Keys {
+    required bytes u_i = 1;
+    required bytes y_i = 2;
+    required DecryptionKey dk = 3;
+    required EncryptionKey ek = 4;
+    required uint64 party_index = 5;
+}
+
+message DecryptionKey {
+    required bytes p = 1;
+    required bytes q = 2;
+}
+
+message EncryptionKey {
+    required bytes n = 1;
+    required bytes nn = 2;
+}
+
+message GG18SharedKeys {
+    required bytes y = 1;
+    required bytes x_i = 2;
+}
+
+message Vss {
+    required ShamirSecretSharing parameters = 1;
+    repeated bytes commitments = 2;
+}
+
+message ShamirSecretSharing {
+    required uint64 threshold = 1;
+    required uint64 share_count = 2;
+}

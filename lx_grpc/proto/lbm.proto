@@ -1,0 +1,141 @@
+syntax = "proto2";
+package lbm;
+import "gg18.proto";
+option java_package = "lx.protogen.lbm";
+
+
+message NewKeygenSession {
+    repeated string owners = 1; // n_keygen := owners.len()
+    required uint32 min_num_owners = 2;
+}
+
+message NewSignSession {
+    required string key_id = 1;
+    required string derv_path = 2;
+    required bytes  tx_hash = 3;
+}
+
+message KeygenParameters {
+    required uint32 threshold = 1;
+    required uint32 n_actual = 2;
+    required uint32 n_keygen = 3;
+}
+
+message SignParameters {
+    required uint32 threshold = 1;
+    required uint32 n_actual = 2;
+    required uint32 n_keygen = 3;
+    required string key_id = 4;
+    required string derv_path = 5;
+    required bytes  tx_hash = 6;
+}
+
+message NewSessionResponse {
+    required string session_id = 1;
+    required int64  expire_at = 2;
+}
+
+message AttendRequest {
+    required string session_id = 1;
+    required string owner_id = 2;
+}
+
+message AttendResponse {
+    required int64  expire_at = 1;
+    required uint32 party_id = 2;
+    oneof params {
+        KeygenParameters keygen_params = 3;
+        SignParameters sign_params = 4;
+    }
+}
+
+// MpcPull
+message MessageToPull {
+    required string session_id = 1;
+    required uint32 round = 2;
+    required uint32 party_from = 3;
+    required uint32 party_to = 4;
+}
+
+// MpcPullFeedback
+message MessagePulled {
+    optional bytes message = 1;
+}
+
+// MpcPush
+message MessageToPush {
+    required uint32 party_from = 1;
+    required uint32 party_to = 2;
+    required uint32 round = 3;
+    required string session_id = 4;
+
+    // Use the crate `bincode` to (de)serialize the payload
+    required bytes message = 5;
+}
+
+message KeygenTermination {
+    required string session_id = 1;
+    required uint32 party_id = 2;
+    required string root_xpub = 3;
+}
+
+message SignTermination {
+    required string session_id = 1;
+    required uint32 party_id = 2;
+    required gg18.Signature sig = 5;
+}
+
+message Tx {
+    required bytes raw_data = 1;
+}
+
+message PushTxRequest {
+    required string session_id = 1;
+    required string owner_id = 2;
+    required Tx tx = 3;
+}
+
+message ProgressRequest {
+    required string session_id = 1;
+}
+
+message PullTxRequest {
+    required string session_id = 1;
+    required string owner_id = 2;
+}
+
+message ProgressPerOwner {
+    optional uint32 party_id = 1;
+    required string opinion = 2; // mysql enum('unknown', 'agree', 'disagree')
+    required uint32 round = 3;
+}
+
+message KeygenProgressPerSession {
+    required string session_id = 1;
+    map<string, ProgressPerOwner> progress = 3; // map<owner_id, progress>
+    optional string root_xpub = 4; // keygen finished iff root_xpub is not-null.
+}
+
+message SignProgressPerSession {
+    required string session_id = 1;
+    map<string, ProgressPerOwner> progress = 3; // map<owner_id, progress>
+    optional gg18.Signature signature = 4; // keygen finished iff root_xpub is not-null.
+}
+
+message Void {}
+
+service LubanManager {
+    rpc BizNewKeygenSession(NewKeygenSession) returns (NewSessionResponse);
+    rpc BizPollKeygenProgress(ProgressRequest) returns (KeygenProgressPerSession);
+    rpc BizNewSignSession(NewSignSession) returns (NewSessionResponse);
+    rpc BizPollSignProgress(ProgressRequest) returns (SignProgressPerSession);
+    
+    rpc MpcPushTx(PushTxRequest) returns (Void);
+    rpc MpcPullTx(PullTxRequest) returns (Tx);
+    rpc MpcTerminateKeygen(KeygenTermination) returns (Void);
+    rpc MpcTerminateSign(SignTermination) returns (Void);
+    rpc MpcAttendAgree(AttendRequest) returns (AttendResponse);
+    rpc MpcAttendDisagree(AttendRequest) returns (Void);
+    rpc MpcPullMessage(MessageToPull) returns (MessagePulled);
+    rpc MpcPushMessage(MessageToPush) returns (Void);
+}

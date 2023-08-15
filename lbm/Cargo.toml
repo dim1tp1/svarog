@@ -1,0 +1,66 @@
+[package]
+name = "lbm"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "lbm"
+path = "src/lbm.rs"
+
+[dependencies.axum]
+version = "0.6.16"
+
+[dependencies.blake2]
+version = "0.10"
+
+[dependencies.chrono]
+version = "0.4"
+
+[dependencies.clap]
+version = "4.2.7"
+features = ["cargo"]
+
+[dependencies.dashmap]
+version = "5.4"
+
+[dependencies.glob]
+version = "0.3"
+
+[dependencies.hex]
+version = "0.4"
+
+[dependencies.lazy_static]
+version = "1.4.0"
+
+[dependencies.rand]
+version = "0.8.5"
+
+[dependencies.serde]
+version = "1.0"
+
+[dependencies.serde_json]
+version = "1.0"
+features = ["preserve_order"]
+
+[dependencies.sha1]
+version = "0.10"
+
+[dependencies.sqlx]
+version = "0.6"
+features = ["runtime-tokio-rustls", "mysql", "sqlite"]
+
+[dependencies.tokio]
+version = "1.28"
+
+[dependencies.uuid]
+version = "1.3"
+features = ["v4"]
+
+[dependencies.xuanmi_base_support]
+git = "ssh://git@github.com/taiyi-research-institute/xuanmi_base_support.git"
+branch = "main"
+# path = "../../xuanmi_base_support"
+
+[dependencies.lx_grpc]
+path = "../lx_grpc"
+# branch = "main"

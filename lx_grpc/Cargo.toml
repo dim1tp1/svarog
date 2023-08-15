@@ -1,0 +1,36 @@
+[package]
+name = "lx_grpc"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies.prost]
+version = "0.11.9"
+
+[dependencies.prost-types]
+version = "0.11.9"
+
+[dependencies.tokio]
+version = "1.27"
+features = ["full"]
+
+[dependencies.tokio-stream]
+version = "0.1"
+
+[dependencies.tonic] # gRPC & protobuf library
+version = "0.9"
+features = [
+    "gzip", # compressed transmission
+    "channel", # enable channels of inner tokio
+]
+
+[dependencies.xuanmi_base_support]
+git = "ssh://git@github.com/taiyi-research-institute/xuanmi_base_support.git"
+branch = "main"
+# path = "../../xuanmi_base_support"
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1
+strip = true
+
