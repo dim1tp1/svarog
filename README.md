@@ -60,7 +60,7 @@ MPC分片存储到 `<SHARD_DIR>/{owner_id}-{session_id}.keystore`, 分片格式�
 
 Keygen会话成功之后, `session_id`就成为根私钥的`key_id`.
 
-(3) (可选) 发起者定时调用grpc函数 `LubanManager.BizPollKeygenProgress`. 该函数用来查询所有参与方的进度.
+(3) (可选) 任何参与者, 不论是否为发起者, 定时调用grpc函数 `LubanManager.BizPollKeygenProgress` 以查询全局进度.
 
 ## 3.2. 根助记词转化为MPC分片
 
@@ -70,7 +70,7 @@ Keygen会话成功之后, `session_id`就成为根私钥的`key_id`.
 
 恰有一个`owner_id`提供根私钥的助记词. 同一个根助记词只能在鲁班系统里keygen一次.
 
-(3) (可选) 任何发起者或参与者定时调用grpc函数 `LubanManager.BizPollKeygenProgress`.
+(3) (可选) 任何参与者定时调用grpc函数 `LubanManager.BizPollKeygenProgress` 以查询全局进度.
 
 ## 3.3. 多方签名
 
@@ -80,4 +80,4 @@ Keygen会话成功之后, `session_id`就成为根私钥的`key_id`.
 
 (2) 参与者调用grpc函数 `LubanClient.ClientSign`.
 
-(3) (可选) 发起者定时调用grpc函数 `LubanManager.BizPollKeygenProgress`.
+(3) (可选) 任何参与者定时调用grpc函数 `LubanManager.BizPollSignProgress`.
