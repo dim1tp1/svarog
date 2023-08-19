@@ -60,7 +60,7 @@ MPC分片存储到 `<SHARD_DIR>/{owner_id}-{session_id}.keystore`, 分片格式�
 
 Keygen会话成功之后, `session_id`就成为根私钥的`key_id`.
 
-(3) (可选) 任何参与者, 不论是否为发起者, 定时调用grpc函数 `LubanManager.BizPollKeygenProgress` 以查询全局进度.
+(3) (可选) 任何参与者 (不论是否为发起者) 定时调用grpc函数 `LubanManager.BizPollKeygenProgress` 以查询全局进度.
 
 ## 3.2. 根助记词转化为MPC分片
 

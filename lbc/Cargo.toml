@@ -91,7 +91,8 @@ version = "0.8"
 features = ["v4"]
 
 [dependencies.xuanmi_base_support]
-git = "ssh://git@github.com/taiyi-research-institute/xuanmi_base_support.git"
+# git = "ssh://git@github.com/taiyi-research-institute/xuanmi_base_support.git"
+git = "https://github.com/taiyi-research-institute/xuanmi_base_support.git"
 branch = "main"
 # path = "../../xuanmi_base_support"
 

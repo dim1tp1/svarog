@@ -18,7 +18,7 @@ features = ["prost"]
 
 [dependencies.xuanmi_base_support]
 # git = "ssh://git@github.com/taiyi-research-institute/xuanmi_base_support"
-git = "ssh://git@github.com/taiyi-research-institute/xuanmi_base_support"
+git = "https://github.com/taiyi-research-institute/xuanmi_base_support.git"
 branch = "main"
 
 [profile.release]
