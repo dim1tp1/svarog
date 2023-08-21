@@ -43,10 +43,10 @@ impl LubanManagerService {
         let mysql_pool = {
             let mysql_url = format!(
                 "mysql://{}:{}@{}:{}/lbm",
-                std::env::var("XUANWU_MYSQL_USER").unwrap(),
-                std::env::var("XUANWU_MYSQL_PASS").unwrap(),
-                std::env::var("XUANWU_MYSQL_HOST").unwrap(),
-                std::env::var("XUANWU_MYSQL_PORT").unwrap(),
+                std::env::var("SVAROG_MYSQL_USER").unwrap(),
+                std::env::var("SVAROG_MYSQL_PASS").unwrap(),
+                std::env::var("SVAROG_MYSQL_HOST").unwrap(),
+                std::env::var("SVAROG_MYSQL_PORT").unwrap(),
             );
             MySqlPoolOptions::new()
                 .max_connections(128)

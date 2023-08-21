@@ -12,13 +12,24 @@
 
 > 以下数据库操作仅供参考. 执行前务必通晓以下操作的用途和后果. 如破坏已有数据库, 与笔者无关.
 
-1. 配置好mysql和业务用户.
+1. 配置好mysql和业务用户. 推荐阅读 [这篇文章](https://www.digitalocean.com/community/tutorials/how-to-install-mysql-on-ubuntu-22-04)
 2. 修改`RunAsRoot.sql`中的用户名. 以root身份执行 `lbsql/RunAsRoot.sql`.
 3. 以业务用户的身份, 依次执行 `Tables.sql`, `Daemons.sql`, `Procedures.sql`.
 
 ## 2.2. 服务
 
 ### 服务端
+
+先配置四个环境变量
+
+```
+SVAROG_MYSQL_USER
+SVAROG_MYSQL_PASS
+SVAROG_MYSQL_HOST
+SVAROG_MYSQL_PORT
+```
+
+之后, 启动 lbm 服务
 
 ```bash
 ./lbm [-p <PORT>]
