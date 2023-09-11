@@ -44,11 +44,6 @@ build:
 	rsync -a assets/ out/
 	mkdir -p out/data || true
 	chmod 700 ./out/*
-	(cd out && tmux new-session -s LB \
-		-n lbm -d "./lbm" \; new-window \
-		-n Rivest -d "./lbc -p 9001 -s http://127.0.0.1:9000 -d ./data" \; new-window \
-		-n Shamir -d "./lbc -p 9002 -s http://127.0.0.1:9000 -d ./data" \; new-window \
-		-n Adlerman -d "./lbc -p 9003 -s http://127.0.0.1:9000 -d ./data")
 
 proto:
 	make -C ./lx_grpc -f protoc.mk
